@@ -29,7 +29,8 @@ type Estudiante struct {
 
 // Función para inicializar la base de datos
 func initDB() *sql.DB {
-	db, err := sql.Open("sqlite3", "./actividades.db")
+	db, err := sql.Open("sqlite3", "./data/actividades.db")
+
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -335,7 +336,7 @@ func main() {
 	http.HandleFunc("/estudiantes/update", updateEstudiante(db))
 
 	log.Println("Servidor escuchando en http://localhost:8080...")
-	if err := http.ListenAndServe(":8080", nil); err != nil {
+	if err := http.ListenAndServe("0.0.0.0:8080", nil); err != nil {
 		log.Fatal(err)
 	}
 }

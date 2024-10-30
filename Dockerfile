@@ -1,17 +1,35 @@
-FROM golang:latest
+# Usa una imagen base de Go
+FROM golang:1.20
 
-RUN mkdir /build
-WORKDIR /build
+# Instala sqlite3 y limpia archivos temporales
+RUN apt-get update && \
+    apt-get install -y sqlite3 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-# Clonar el repositorio directamente, no es necesario usar 'go get'
-RUN git clone https://github.com/Daniel202412/API-REST.git
+# Establece el directorio de trabajo en el contenedor
+WORKDIR /home/juanjose/Api
 
-# Cambiar al directorio del proyecto e inicializar los módulos si no existen
-WORKDIR /build/API-REST
+# Copia el archivo principal de tu aplicación en el contenedor
+COPY mainprueba.go .
 
-# Construir el proyecto
-RUN go mod tidy && go build -o main
+# Crea un directorio para la base de datos
+RUN mkdir -p data
 
-# Definir el punto de entrada
-ENTRYPOINT ["/build/API-REST/main"]
+# Copia la base de datos en el contenedor
+COPY data/actividades.db ./data/
+
+# Inicializa el módulo de Go
+RUN go mod init miapi && go mod tidy
+
+# Compila la aplicación
+RUN go build -o miapi mainprueba.go
+
+# Expone el puerto en el que corre la API
+EXPOSE 8080
+
+# Comando para ejecutar la API
+CMD ["./miapi"]
+
+
 

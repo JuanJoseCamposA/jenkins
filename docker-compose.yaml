@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  api:
+    image: api
+    ports:
+      - "8080:8080"
+    volumes:
+      - almacen:/home/juanjose/Api/data
+
+volumes:
+  almacen:
+    external: true
