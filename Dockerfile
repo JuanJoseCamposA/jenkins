@@ -26,7 +26,7 @@ RUN go mod init miapi && go mod tidy
 RUN go build -o miapi mainprueba.go
 
 # Expone el puerto en el que corre la API
-EXPOSE 8080
+EXPOSE 8081
 
 # Comando para ejecutar la API
 CMD ["./miapi"]

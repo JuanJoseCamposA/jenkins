@@ -335,7 +335,11 @@ func main() {
 	http.HandleFunc("/estudiantes/actividad", getEstudiantesPorActividadID(db))
 	http.HandleFunc("/estudiantes/update", updateEstudiante(db))
 
+<<<<<<< HEAD
 	log.Println("Servidor escuchando en http://localhost:8080...")
+=======
+	log.Println("Servidor escuchando en http://localhost:8081...")
+>>>>>>> origin/main
 	if err := http.ListenAndServe("0.0.0.0:8081", nil); err != nil {
 		log.Fatal(err)
 	}
