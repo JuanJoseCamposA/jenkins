@@ -1,3 +1,28 @@
+Jenkinsfile----CODIGO DE LA PRUEBA
+
+Este pipeline de Jenkins implementa un proceso de **Integración Continua/Despliegue Continuo (CI/CD)** para una API. A continuación se describen las etapas del pipeline:
+
+1. Preparación:
+   - Detiene y elimina cualquier contenedor Docker que esté utilizando el nombre `charming_knuth`.
+   - Elimina la carpeta `temp_jenkins` si existe, para asegurarse de que el entorno esté limpio antes de comenzar.
+
+2. Clonar Repositorio:
+   - Clona el repositorio de GitHub desde la rama `main` en un directorio temporal llamado `temp_jenkins`.
+
+3. Construir:
+   - Cambia al directorio `temp_jenkins` y construye una imagen Docker utilizando el Dockerfile presente en ese directorio. La imagen se etiqueta como `juan`.
+
+4. Ejecutar API en Contenedor:
+   - Inicia un contenedor en segundo plano a partir de la imagen `juan`, asignando el nombre `charming_knuth` y mapeando el puerto `8081` del contenedor al puerto `8081` de la máquina host.
+
+5. Probar API:
+   - Espera 20 segundos para asegurarse de que el contenedor esté completamente iniciado.
+   - Verifica los logs del contenedor para confirmar que el servidor de la API se está ejecutando.
+   - Realiza una solicitud `curl` al endpoint `/actividades` de la API utilizando la dirección IP del host (en este caso, `http://172.19.146.241:8081/actividades`) para comprobar su disponibilidad. Si la respuesta es un código `200`, significa que la API está funcionando correctamente.
+
+6. Desplegar:
+   - Esta etapa simplemente imprime un mensaje indicando que el despliegue ha ocurrido.
+
 ![image](https://github.com/user-attachments/assets/c21abdb3-2dd1-4fea-bd0f-edff3173a639)
 
 ![image](https://github.com/user-attachments/assets/c04f7a64-79ae-41e8-8da0-61fe8f160a8f)
